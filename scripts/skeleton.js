@@ -2,20 +2,42 @@
 // This function loads the parts of your skeleton 
 // (navbar, footer, and other things) into html doc. 
 //---------------------------------------------------
-function loadSkeleton() {
+// function loadSkeleton(){
+//     console.log($('#navbarPlaceholder').load('./text/nav.html'));
+//     console.log($('#footerPlaceholder').load('./text/footer.html'));
+// }
+// loadSkeleton();  //invoke the function
 
+//---------------------------------------------------
+// This function loads the parts of your skeleton 
+// (navbar, footer, and other things) into html doc. 
+//---------------------------------------------------
+function loadSkeleton() {
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-            // If the "user" variable is not null, then someone is logged in
-            // User is signed in.
-            // Do something for the user here.
-            console.log($('#navbarPlaceholder').load('./text/nav_after_login.html'));
-            console.log($('#footerPlaceholder').load('./text/footer.html'));
+            $('#navbarPlaceholder').load('./text/nal.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Error loading nal.html: ", xhr.status, xhr.statusText);
+                } else {
+                    console.log("nal.html loaded successfully");
+                }
+            });
         } else {
-            // No user is signed in.
-            console.log($('#navbarPlaceholder').load('./text/nav_before_login.html'));
-            console.log($('#footerPlaceholder').load('./text/footer.html'));
+            $('#navbarPlaceholder').load('./text/nbl.html', function (response, status, xhr) {
+                if (status == "error") {
+                    console.log("Error loading nbl.html: ", xhr.status, xhr.statusText);
+                } else {
+                    console.log("nbl.html loaded successfully");
+                }
+            });
         }
+        $('#footerPlaceholder').load('./text/footer.html', function (response, status, xhr) {
+            if (status == "error") {
+                console.log("Error loading footer.html: ", xhr.status, xhr.statusText);
+            } else {
+                console.log("footer.html loaded successfully");
+            }
+        });
     });
 }
 loadSkeleton(); //invoke the function
